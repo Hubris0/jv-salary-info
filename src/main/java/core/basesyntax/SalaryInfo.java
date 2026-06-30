@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 public class SalaryInfo {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter
             .ofPattern("dd.MM.yyyy");
+    private static final int date = 0;
+    private static final int name = 1;
+    private static final int hours = 2;
+    private static final int salary = 3;
 
     public String getSalaryInfo(String[] names, String[] data, String dateFrom, String dateTo) {
         int[] salaries = new int[names.length];
@@ -14,15 +18,15 @@ public class SalaryInfo {
         for (int i = 0; i < names.length; i++) {
             for (int j = 0; j < data.length; j++) {
                 String[] splitData = data[j].split(" ");
-                LocalDate currentDate = LocalDate.parse(splitData[0], dateTimeFormatter);
-                boolean searchScope = splitData[1].equals(names[i])
+                LocalDate currentDate = LocalDate.parse(splitData[date], dateTimeFormatter);
+                boolean searchScope = splitData[name].equals(names[i])
                         && (currentDate.isAfter(fromDate)
                         || currentDate.isEqual(fromDate))
                         && (currentDate.isBefore(toDate)
                         || currentDate.isEqual(toDate));
                 if (searchScope) {
-                    int salary = Integer.parseInt(splitData[2]) * Integer.parseInt(splitData[3]);
-                    salaries[i] += salary;
+                    int payment = Integer.parseInt(splitData[hours]) * Integer.parseInt(splitData[salary]);
+                    salaries[i] += payment;
                 }
             }
         }
