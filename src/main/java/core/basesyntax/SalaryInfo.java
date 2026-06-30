@@ -25,7 +25,8 @@ public class SalaryInfo {
                         && (currentDate.isBefore(toDate)
                         || currentDate.isEqual(toDate));
                 if (searchScope) {
-                    int payment = Integer.parseInt(splitData[hours]) * Integer.parseInt(splitData[salary]);
+                    int payment = Integer.parseInt(splitData[hours])
+                            * Integer.parseInt(splitData[salary]);
                     salaries[i] += payment;
                 }
             }
