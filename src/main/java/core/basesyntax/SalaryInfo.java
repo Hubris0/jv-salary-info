@@ -4,16 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class SalaryInfo {
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
     public String getSalaryInfo(String[] names, String[] data, String dateFrom, String dateTo) {
         int[] salaries = new int[names.length];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate fromDate = LocalDate.parse(dateFrom, formatter);
-        LocalDate toDate = LocalDate.parse(dateTo, formatter);
+        LocalDate fromDate = LocalDate.parse(dateFrom, dateTimeFormatter);
+        LocalDate toDate = LocalDate.parse(dateTo, dateTimeFormatter);
         for (int i = 0; i < names.length; i++) {
-            for (String datum : data) {
-                String[] splitData = datum.split(" ");
-                LocalDate currentDate = LocalDate.parse(splitData[0], formatter);
-                boolean searchScope = datum.contains(names[i])
+            for (int j = 0; j < data.length; j++) {
+                String[] splitData = data[j].split(" ");
+                LocalDate currentDate = LocalDate.parse(splitData[0], dateTimeFormatter);
+                boolean searchScope = splitData[1].equals(names[i])
                         && (currentDate.isAfter(fromDate)
                         || currentDate.isEqual(fromDate))
                         && (currentDate.isBefore(toDate)
